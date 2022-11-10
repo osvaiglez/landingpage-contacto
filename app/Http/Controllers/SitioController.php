@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class SitioController extends Controller
 {
@@ -26,14 +28,23 @@ class SitioController extends Controller
 
     public function recibeFormContacto(Request $request)
     {
-        //Recibir info
-        //dd($request);
-
+    
         //Validar datos
         $request->validate([
             'nombre' => 'required|max:255|min:3',
-            'email' => ['required', 'email'],
+            'correo' => 'required | email',
+            'mensaje' => 'required | min: 5',
         ]);
+
+        DB::table('contactos')->insert([
+            'nombre' => $request->nombre,
+            'email' => $request->correo,
+            'mensaje' => $request->mensaje,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect('/contacto');
 
         //Insertar a DB
         //Redirigir

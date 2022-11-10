@@ -37,16 +37,27 @@
                          </div>
 
                          <div id="contact-form">
+                              
+                              @if ($errors->any()) 
+                                   <div>
+                                        <ul>
+                                             @foreach ($errors->all() as $error)
+                                                  <li>{{ $error }}</li>
+                                             @endforeach
+                                        </ul>
+                                   </div>
+                              @endif
+
                               <form action="/recibe-form-contacto" method='POST'>
                                    @csrf
                                    <div class="wow fadeInUp" data-wow-delay="1s">
                                         <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Tu nombre" required value = {{ $nombre ?? '' }}>
                                    </div>
                                    <div class="wow fadeInUp" data-wow-delay="1.2s">
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Tu correo electrónico" required value = {{ $correo ?? '' }}>
+                                        <input name="correo" type="email" class="form-control" id="correo" placeholder="Tu correo electrónico" required value = {{ $correo ?? '' }}>
                                    </div>
                                    <div class="wow fadeInUp" data-wow-delay="1.4s">
-                                        <textarea name="message" rows="5" class="form-control" id="message" placeholder="Escribe tu mensaje..."></textarea>
+                                        <textarea name="mensaje" rows="5" class="form-control" id="mensaje" placeholder="Escribe tu mensaje..."></textarea>
                                    </div>
                                    <div class="wow fadeInUp col-md-6 col-sm-8" data-wow-delay="1.6s">
                                         <input name="submit" type="submit" class="form-control" id="submit" value="Enviar">
